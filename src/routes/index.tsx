@@ -44,6 +44,13 @@ function Dashboard() {
     }
   }
 
+  // Pre-generate years and months for dropdowns
+  const years = useMemo(() => Array.from({ length: 201 }, (_, i) => 1900 + i), []);
+  const months = useMemo(() => [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ], []);
+
   const handleToday = () => {
     const today = new Date()
     setSelectedDate(today)
@@ -123,14 +130,33 @@ function Dashboard() {
       <main className="flex-grow flex flex-col gap-6">
         <div className="bento-card p-6 h-full min-h-[600px] flex flex-col">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <CalendarIcon className="w-6 h-6 text-gold" />
-              {new Date(viewYear, viewMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}
-            </h2>
+              <div className="flex gap-2">
+                <select 
+                  value={viewMonth}
+                  onChange={(e) => setViewMonth(Number(e.target.value))}
+                  className="bg-[#182B38] border border-[var(--border-card)] text-white text-lg font-bold rounded-lg px-3 py-1 outline-none focus:border-gold transition-colors cursor-pointer"
+                >
+                  {months.map((month, idx) => (
+                    <option key={idx} value={idx}>{month}</option>
+                  ))}
+                </select>
+                <select
+                  value={viewYear}
+                  onChange={(e) => setViewYear(Number(e.target.value))}
+                  className="bg-[#182B38] border border-[var(--border-card)] text-white text-lg font-bold rounded-lg px-3 py-1 outline-none focus:border-gold transition-colors cursor-pointer"
+                >
+                  {years.map(year => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
             <div className="flex gap-2">
-              <button onClick={handlePrevMonth} className="px-4 py-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-card)] hover:bg-[var(--border-card)] transition-colors cursor-pointer">Prev</button>
+              <button onClick={handlePrevMonth} className="px-4 py-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-card)] hover:bg-[var(--border-card)] transition-colors cursor-pointer">Prev Month</button>
               <button onClick={handleToday} className="px-4 py-2 rounded-lg bg-gold text-[#0D1B25] font-semibold hover:bg-opacity-90 transition-colors cursor-pointer">Today</button>
-              <button onClick={handleNextMonth} className="px-4 py-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-card)] hover:bg-[var(--border-card)] transition-colors cursor-pointer">Next</button>
+              <button onClick={handleNextMonth} className="px-4 py-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-card)] hover:bg-[var(--border-card)] transition-colors cursor-pointer">Next Month</button>
             </div>
           </div>
           
