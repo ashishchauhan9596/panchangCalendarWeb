@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PanchangYearMonthDayRouteImport } from './routes/panchang.$year.$month.$day'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -22,31 +23,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PanchangYearMonthDayRoute = PanchangYearMonthDayRouteImport.update({
+  id: '/panchang/$year/$month/$day',
+  path: '/panchang/$year/$month/$day',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/panchang/$year/$month/$day': typeof PanchangYearMonthDayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/panchang/$year/$month/$day': typeof PanchangYearMonthDayRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/panchang/$year/$month/$day': typeof PanchangYearMonthDayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/' | '/about' | '/panchang/$year/$month/$day'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '/about' | '/panchang/$year/$month/$day'
+  id: '__root__' | '/' | '/about' | '/panchang/$year/$month/$day'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  PanchangYearMonthDayRoute: typeof PanchangYearMonthDayRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/panchang/$year/$month/$day': {
+      id: '/panchang/$year/$month/$day'
+      path: '/panchang/$year/$month/$day'
+      fullPath: '/panchang/$year/$month/$day'
+      preLoaderRoute: typeof PanchangYearMonthDayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  PanchangYearMonthDayRoute: PanchangYearMonthDayRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

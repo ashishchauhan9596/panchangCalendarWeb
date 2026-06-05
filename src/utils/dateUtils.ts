@@ -9,7 +9,7 @@
  * Format a Date to a 12-hour time string (e.g., "5:48 AM")
  */
 export function formatTime12h(date: Date): string {
-  const lang = 'en';
+  const lang: string = 'en';
   let hours = date.getHours();
   const minutes = date.getMinutes();
   const ampm = hours >= 12 ? (lang === 'hi' ? 'अपराह्न' : 'PM') : (lang === 'hi' ? 'पूर्वाह्न' : 'AM');
@@ -41,7 +41,7 @@ export function formatTimeRange(start: Date, end: Date): string {
  * Format a date as "Mon, Jun 2, 2026"
  */
 export function formatDateFull(date: Date): string {
-  const lang = 'en';
+  const lang: string = 'en';
   if (lang === 'hi') {
     const daysHi = ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'];
     const monthsHi = [
@@ -63,7 +63,7 @@ export function formatDateFull(date: Date): string {
  * Format a date as "June 2, 2026"
  */
 export function formatDateLong(date: Date): string {
-  const lang = 'en';
+  const lang: string = 'en';
   if (lang === 'hi') {
     const monthsHi = [
       'जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून',
@@ -83,7 +83,7 @@ export function formatDateLong(date: Date): string {
  * Format a date as "2 Jun"
  */
 export function formatDateShort(date: Date): string {
-  const lang = 'en';
+  const lang: string = 'en';
   if (lang === 'hi') {
     const monthsHi = [
       'जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून',
